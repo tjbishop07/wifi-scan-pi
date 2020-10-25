@@ -53,7 +53,7 @@ def sniffpackets(packet):
         image = Image.new('1', (epd.height, epd.width),
                           255)  # 255: clear the fram
         draw = ImageDraw.Draw(image)
-        draw.text((0, 0), SSID, font=font24, fill=0)
+        draw.text((0, 0), SSID, font=font15, fill=0)
         epd.display(epd.getbuffer(image))
 
         if str(ST) == "8" and SSID != "" and DSTMAC.lower() == "ff:ff:ff:ff:ff:ff":
