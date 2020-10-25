@@ -50,10 +50,9 @@ def sniffpackets(packet):
         epd = epd2in13_V2.EPD()
         epd.init(epd.FULL_UPDATE)
 
-        image = Image.new('1', (epd.height, epd.width),
-                          255)  # 255: clear the fram
+        image = Image.new('1', (epd.height, epd.width),255) #clear the screen
         draw = ImageDraw.Draw(image)
-        draw.text((0, 0), SSID, font=font15, fill=0)
+        draw.text((0, 0), "New AP: {0:5}".format(SSID), font=font15, fill=0)
         epd.display(epd.getbuffer(image))
 
         if str(ST) == "8" and SSID != "" and DSTMAC.lower() == "ff:ff:ff:ff:ff:ff":
