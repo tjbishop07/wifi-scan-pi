@@ -20,7 +20,7 @@ if os.path.exists(libdir):
 
 
 logging.basicConfig(level=logging.DEBUG)
-newiface = 'wlan1'
+newiface = 'wlan0'
 ap_list = []
 
 
@@ -99,8 +99,6 @@ try:
 
     global ssid_list
     ssid_list = {}
-    global s
-    s = conf.L2socket(iface=newiface)
     logging.info("epd2in13_V2 Demo")
 
     epd = epd2in13_V2.EPD()
