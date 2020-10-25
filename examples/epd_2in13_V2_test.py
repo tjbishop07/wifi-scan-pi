@@ -23,69 +23,77 @@ if os.path.exists(libdir):
 
 logging.basicConfig(level=logging.DEBUG)
 newiface = 'wlan1mon'
+ap_list = []
 
+def PacketHandler(packet):
 
-def sniffpackets(packet):
-    try:
-        SRCMAC = packet[0].addr2
-        DSTMAC = packet[0].addr
-        BSSID = packet[0].addr3
-    except:
-        print("Cannot read MAC address")
+    if packet.haslayer(Dot11):
+        if packet.type == 0 and packet.subtype == 8:
+            if packet.addr2 not in ap_list:
+                ap_list.append(packet.addr2)
+                print("Access Point MAC: %s with SSID: %s " %
+                      (packet.addr2, packet.info))
 
-    print('Got mAC')
-    # print(str(packet).encode("hex"))
-    # sys.exc_clear()
+    # try:
+    #     SRCMAC = packet[0].addr2
+    #     DSTMAC = packet[0].addr
+    #     BSSID = packet[0].addr3
+    # except:
+    #     print("Cannot read MAC address")
 
-    try:
-        SSIDSize = packet[0][Dot11Elt].len
-        SSID = packet[0][Dot11Elt].info
-    except:
-        SSID = ""
-        SSIDSize = 0
+    # print('Got mAC')
+    # # print(str(packet).encode("hex"))
+    # # sys.exc_clear()
 
-    print('Analyzing packet: {0}'.format(str(packet[0].type)))
-    if packet[0].type == 0:
-        ST = packet[0][Dot11].subtype
-        print(str(SSID))
-        print('Init epd...')
-        epd = epd2in13_V2.EPD()
-        epd.init(epd.FULL_UPDATE)
+    # try:
+    #     SSIDSize = packet[0][Dot11Elt].len
+    #     SSID = packet[0][Dot11Elt].info
+    # except:
+    #     SSID = ""
+    #     SSIDSize = 0
 
-        image = Image.new('1', (epd.height, epd.width),
-                          255)  # clear the screen
-        draw = ImageDraw.Draw(image)
-        draw.text((0, 0), str(SSID), font=font15, fill=0)
-        epd.display(epd.getbuffer(image))
+    # print('Analyzing packet: {0}'.format(str(packet[0].type)))
+    # if packet[0].type == 0:
+    #     ST = packet[0][Dot11].subtype
+    #     print(str(SSID))
+    #     print('Init epd...')
+    #     epd = epd2in13_V2.EPD()
+    #     epd.init(epd.FULL_UPDATE)
 
-        if str(ST) == "8" and SSID != "" and DSTMAC.lower() == "ff:ff:ff:ff:ff:ff":
-            p = packet[Dot11Elt]
-            cap = packet.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}"
-                                 "{Dot11ProbeResp:%Dot11ProbeResp.cap%}").split('+')
-            channel = None
-            crypto = set()
-            while isinstance(p, Dot11Elt):
-                try:
-                    if p.ID == 3:
-                        channel = ord(p.info)
-                    elif p.ID == 48:
-                        crypto.add("WPA2")
-                    elif p.ID == 221 and p.info.startswith('\x00P\xf2\x01\x01\x00'):
-                        crypto.add("WPA")
-                except:
-                    pass
-                p = p.payload
-            if not crypto:
-                if 'privacy' in cap:
-                    crypto.add("WEP")
-                else:
-                    crypto.add("OPN")
-            if SRCMAC not in ssid_list.keys():
-                # if '0050f204104a000110104400010210' in str(packet).encode("hex"):
-                #	crypto.add("WPS")
-                print("[+] New AP {0:5}\t{1:20}\t{2:20}\t{3:5}".format(
-                    channel, BSSID, ' / '.join(crypto), SSID))
-                ssid_list[SRCMAC] = SSID
+    #     image = Image.new('1', (epd.height, epd.width),
+    #                       255)  # clear the screen
+    #     draw = ImageDraw.Draw(image)
+    #     draw.text((0, 0), str(SSID), font=font15, fill=0)
+    #     epd.display(epd.getbuffer(image))
+
+    #     if str(ST) == "8" and SSID != "" and DSTMAC.lower() == "ff:ff:ff:ff:ff:ff":
+    #         p = packet[Dot11Elt]
+    #         cap = packet.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}"
+    #                              "{Dot11ProbeResp:%Dot11ProbeResp.cap%}").split('+')
+    #         channel = None
+    #         crypto = set()
+    #         while isinstance(p, Dot11Elt):
+    #             try:
+    #                 if p.ID == 3:
+    #                     channel = ord(p.info)
+    #                 elif p.ID == 48:
+    #                     crypto.add("WPA2")
+    #                 elif p.ID == 221 and p.info.startswith('\x00P\xf2\x01\x01\x00'):
+    #                     crypto.add("WPA")
+    #             except:
+    #                 pass
+    #             p = p.payload
+    #         if not crypto:
+    #             if 'privacy' in cap:
+    #                 crypto.add("WEP")
+    #             else:
+    #                 crypto.add("OPN")
+    #         if SRCMAC not in ssid_list.keys():
+    #             # if '0050f204104a000110104400010210' in str(packet).encode("hex"):
+    #             #	crypto.add("WPS")
+    #             print("[+] New AP {0:5}\t{1:20}\t{2:20}\t{3:5}".format(
+    #                 channel, BSSID, ' / '.join(crypto), SSID))
+    #             ssid_list[SRCMAC] = SSID
 
 
 try:
@@ -132,7 +140,7 @@ try:
     epd.display(epd.getbuffer(image))
     time.sleep(2)
 
-    sniff(iface=newiface, prn=sniffpackets, store=0)
+    sniff(iface=newiface, prn=PacketHandler)
 
     # read bmp file
     logging.info("2.read bmp file...")
