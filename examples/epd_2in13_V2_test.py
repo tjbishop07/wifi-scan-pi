@@ -10,8 +10,6 @@ import os
 
 import signal
 from scapy.all import *
-from wifi import Cell, Scheme
-Cell.all('wlan1')
 
 picdir = os.path.join(os.path.dirname(
     os.path.dirname(os.path.realpath(__file__))), 'pic')
@@ -24,6 +22,7 @@ if os.path.exists(libdir):
 logging.basicConfig(level=logging.DEBUG)
 newiface = 'wlan1mon'
 ap_list = []
+
 
 def PacketHandler(packet):
 
@@ -102,9 +101,6 @@ try:
     ssid_list = {}
     global s
     s = conf.L2socket(iface=newiface)
-
-    Cell.all('wlan0')
-    cell = Cell.all('wlan0')[0]
     logging.info("epd2in13_V2 Demo")
 
     epd = epd2in13_V2.EPD()
