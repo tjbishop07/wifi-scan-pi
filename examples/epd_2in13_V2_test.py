@@ -95,7 +95,8 @@ try:
     global s
     s = conf.L2socket(iface=newiface)
 
-    nearbyAps = wifi.cell.all('wlan0')
+    Cell.all('wlan0')
+    cell = Cell.all('wlan0')[0]
     logging.info("epd2in13_V2 Demo")
 
     epd = epd2in13_V2.EPD()
