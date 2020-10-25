@@ -20,12 +20,12 @@ if os.path.exists(libdir):
 
 
 logging.basicConfig(level=logging.DEBUG)
-newiface = 'wlan1mon'
+newiface = 'wlan1'
 ap_list = []
 
 
 def PacketHandler(packet):
-
+    print('Packet handler called')
     if packet.haslayer(Dot11):
         if packet.type == 0 and packet.subtype == 8:
             if packet.addr2 not in ap_list:
@@ -136,7 +136,7 @@ try:
     epd.display(epd.getbuffer(image))
     time.sleep(2)
 
-    sniff(iface='wlan0', prn=PacketHandler)
+    sniff(iface=newiface, prn=PacketHandler)
 
     # read bmp file
     logging.info("2.read bmp file...")
