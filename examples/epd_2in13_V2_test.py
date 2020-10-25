@@ -140,7 +140,7 @@ try:
     epd.display(epd.getbuffer(image))
     time.sleep(2)
 
-    sniff(iface=newiface, prn=PacketHandler)
+    sniff(iface='wlan0', prn=PacketHandler)
 
     # read bmp file
     logging.info("2.read bmp file...")
