@@ -25,7 +25,6 @@ ap_list = []
 
 
 def PacketHandler(packet):
-    print('Packet handler called')
     if packet.haslayer(Dot11):
         if packet.type == 0 and packet.subtype == 8:
             if packet.addr2 not in ap_list:
