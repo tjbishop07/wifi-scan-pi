@@ -79,7 +79,7 @@ def parse_wifi_map(map_path):
         len(wifi_map)), font=font15, fill=0)
     time_draw.text((0, 15), 'Associated device count: {}'.format(
         len(associated_devices)), font=font15, fill=0)
-    time_draw.text((0, 25), 'Device count: {}'.format(
+    time_draw.text((0, 35), 'Device count: {}'.format(
         len(devices)), font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     print('\n\nSSID count: {}, Associated device count: {}, Device count: {}'.format(
