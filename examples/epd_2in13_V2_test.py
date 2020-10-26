@@ -110,9 +110,15 @@ try:
     ssid_list = {}
     logging.info("epd2in13_V2 Demo")
 
+    epd.init(epd.FULL_UPDATE)
+    epd.displayPartBaseImage(epd.getbuffer(time_image))
+    epd.init(epd.PART_UPDATE)
+    num = 0
+
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), "Scanning...", font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
+
     logging.info("init and Clear")
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
@@ -156,14 +162,6 @@ try:
     # image1.paste(bmp, (2, 2))
     # epd.display(epd.getbuffer(image1))
     # time.sleep(2)
-
-    # # partial update
-    logging.info("Init...")
-
-    epd.init(epd.FULL_UPDATE)
-    epd.displayPartBaseImage(epd.getbuffer(time_image))
-    epd.init(epd.PART_UPDATE)
-    num = 0
 
     sniff(iface=newiface, prn=PacketHandler)
 
