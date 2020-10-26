@@ -40,7 +40,7 @@ def PacketHandler(packet):
                 ap_ssid = packet.info
                 time_draw.text((0, 50), mac_address, font=font15, fill=0, align="center")
                 time_draw.text((0, 75), ap_ssid.decode('UTF-8'), font=font15, fill=0, align="center")
-                epd.displayPartial(epd.getbuffer(time_image))
+                epd.displayPartial(epd.getbuffer(time_draw))
                 print("MAC: %s with SSID: %s " %
                       (packet.addr2, packet.info))
 
