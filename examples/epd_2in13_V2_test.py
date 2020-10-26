@@ -7,6 +7,7 @@ from waveshare_epd import epd2in13_V2
 import logging
 import sys
 import os
+import yaml
 
 import signal
 from scapy.all import *
