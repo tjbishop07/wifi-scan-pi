@@ -10,10 +10,6 @@ import os
 import subprocess
 import yaml
 
-import signal
-from scapy.all import *
-import yaml
-
 picdir = os.path.join(os.path.dirname(
     os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(
@@ -32,23 +28,6 @@ font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
 epd = epd2in13_V2.EPD()
 time_image = Image.new('1', (epd.height, epd.width), 255)
 time_draw = ImageDraw.Draw(time_image)
-
-
-def PacketHandler(packet):
-    if packet.haslayer(Dot11):
-        if packet.type == 0 and packet.subtype == 8:
-            if packet.addr2 not in ap_list:
-                ap_list.append(packet.addr2)
-                time_draw.rectangle((0, 0, 220, 105), fill=255)
-                mac_address = packet.addr2
-                ap_ssid = packet.info
-                time_draw.text((0, 50), mac_address,
-                               font=font15, fill=0, align="center")
-                time_draw.text((0, 75), ap_ssid.decode('UTF-8'),
-                               font=font15, fill=0, align="center")
-                epd.displayPartial(epd.getbuffer(time_image))
-                print("MAC: %s with SSID: %s " %
-                      (packet.addr2, packet.info))
 
 
 def parse_wifi_map(map_path):
@@ -74,6 +53,7 @@ def parse_wifi_map(map_path):
                     else:
                         print('\t\tdevice = {}'.format(device))
 
+    time_draw.text((120, 90), 'Last Updated: {}'.format(time.strftime('%H:%M:%S')), font=font15, fill=0)
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), 'SSID count: {}'.format(
         len(wifi_map)), font=font15, fill=0)
