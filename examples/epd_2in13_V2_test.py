@@ -161,7 +161,9 @@ try:
     # time.sleep(2)
 
     sniff(iface=newiface, prn=PacketHandler)
-
+    epd.init(epd.FULL_UPDATE)
+    epd.Clear(0xFF)
+    
     while (True):
         time_draw.rectangle((120, 80, 220, 105), fill=255)
         time_draw.text((120, 80), time.strftime(
@@ -171,7 +173,6 @@ try:
         if(num == 10):
             break
 
-    logging.info("Clear...")
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
 
