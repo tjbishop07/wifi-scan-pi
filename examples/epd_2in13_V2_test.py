@@ -22,6 +22,8 @@ if os.path.exists(libdir):
 logging.basicConfig(level=logging.DEBUG)
 newiface = 'wlan1mon'
 ap_list = []
+time_image = Image.new('1', (epd.height, epd.width), 255)
+time_draw = ImageDraw.Draw(time_image)
 
 
 def PacketHandler(packet):
@@ -151,15 +153,13 @@ try:
 
     # # partial update
     logging.info("Init...")
-    sniff(iface=newiface, prn=PacketHandler)
-    time_image = Image.new('1', (epd.height, epd.width), 255)
-    time_draw = ImageDraw.Draw(time_image)
-
     epd.init(epd.FULL_UPDATE)
     epd.displayPartBaseImage(epd.getbuffer(time_image))
-
     epd.init(epd.PART_UPDATE)
     num = 0
+
+    sniff(iface=newiface, prn=PacketHandler)
+
     while (True):
         time_draw.rectangle((120, 80, 220, 105), fill=255)
         time_draw.text((120, 80), time.strftime(
