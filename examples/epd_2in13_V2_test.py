@@ -7,6 +7,7 @@ from waveshare_epd import epd2in13_V2
 import logging
 import sys
 import os
+import subprocess
 import yaml
 
 import signal
@@ -76,9 +77,9 @@ def parse_wifi_map(map_path):
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), 'SSID count: {}'.format(
         len(wifi_map)), font=font15, fill=0)
-    time_draw.text((0, 0), 'Associated device count: {}'.format(
+    time_draw.text((10, 0), 'Associated device count: {}'.format(
         len(associated_devices)), font=font15, fill=0)
-    time_draw.text((0, 0), 'Device count: {}'.format(
+    time_draw.text((20, 0), 'Device count: {}'.format(
         len(devices)), font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     print('\n\nSSID count: {}, Associated device count: {}, Device count: {}'.format(
@@ -161,7 +162,11 @@ try:
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), "Scanning...", font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
-    os.system('trackerjacker -i wlan1 --map')
+    #os.system('trackerjacker -i wlan1 --map')
+    process = subprocess.Popen(['trackerjacker -i wlan1 --map'],
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+    stdout, stderr = process.communicate()
 
     # logging.info("1.Drawing on the image...")
     # image = Image.new('1', (epd.height, epd.width),
