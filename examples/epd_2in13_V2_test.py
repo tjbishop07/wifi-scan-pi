@@ -110,8 +110,8 @@ try:
     ssid_list = {}
     logging.info("epd2in13_V2 Demo")
 
-    epd.init(epd.FULL_UPDATE)
-    epd.displayPartBaseImage(epd.getbuffer(time_image))
+    # epd.init(epd.FULL_UPDATE)
+    # epd.displayPartBaseImage(epd.getbuffer(time_image))
     epd.init(epd.PART_UPDATE)
     num = 0
 
@@ -120,8 +120,8 @@ try:
     epd.displayPartial(epd.getbuffer(time_image))
 
     logging.info("init and Clear")
-    epd.init(epd.FULL_UPDATE)
-    epd.Clear(0xFF)
+    # epd.init(epd.FULL_UPDATE)
+    # epd.Clear(0xFF)
 
     # logging.info("1.Drawing on the image...")
     # image = Image.new('1', (epd.height, epd.width),
