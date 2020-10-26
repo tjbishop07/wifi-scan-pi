@@ -207,7 +207,7 @@ try:
     # epd.init(epd.FULL_UPDATE)
     # epd.Clear(0xFF)
 
-   while (True):
+    while (True):
 
         parse_wifi_map(wifi_map_path)
 
