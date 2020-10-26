@@ -99,11 +99,11 @@ try:
     num = 0
 
     time_draw.rectangle((0, 0, 220, 105), fill=255)
-    time_draw.text((0, 0), "Scanning...", font=font15, fill=0)
+    time_draw.text((0, 0), "Loading...", font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     #os.system('trackerjacker -i wlan1 --map')
-    logging.info("Launching tJ...")
-    process = subprocess.Popen(['trackerjacker', '-i', 'wlan1', '--map'])
+    #logging.info("Launching tJ...")
+    #process = subprocess.Popen(['trackerjacker', '-i', 'wlan1', '--map'])
     #stdout, stderr = process.communicate()
 
     #cmd = "trackerjacker -i wlan1 --map"
