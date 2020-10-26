@@ -36,8 +36,8 @@ def PacketHandler(packet):
             if packet.addr2 not in ap_list:
                 ap_list.append(packet.addr2)
                 #time_draw.rectangle((0, 0, 220, 105), fill=255)
-                time_draw.text((0, 50), str(packet.addr2), font=font15, fill=0)
-                time_draw.text((0, 100), str(packet.info), font=font15, fill=0)
+                time_draw.text((10, 50), str(packet.addr2).decode('UTF-8'), font=font15, fill=0)
+                time_draw.text((10, 75), str(packet.info).decode('UTF-8'), font=font15, fill=0)
                 epd.displayPartial(epd.getbuffer(time_image))
                 print("MAC: %s with SSID: %s " %
                       (packet.addr2, packet.info))
