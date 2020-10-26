@@ -22,6 +22,7 @@ if os.path.exists(libdir):
 logging.basicConfig(level=logging.DEBUG)
 newiface = 'wlan1mon'
 ap_list = []
+epd = epd2in13_V2.EPD()
 time_image = Image.new('1', (epd.height, epd.width), 255)
 time_draw = ImageDraw.Draw(time_image)
 
@@ -102,7 +103,6 @@ try:
     ssid_list = {}
     logging.info("epd2in13_V2 Demo")
 
-    epd = epd2in13_V2.EPD()
     logging.info("init and Clear")
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
@@ -153,6 +153,7 @@ try:
 
     # # partial update
     logging.info("Init...")
+
     epd.init(epd.FULL_UPDATE)
     epd.displayPartBaseImage(epd.getbuffer(time_image))
     epd.init(epd.PART_UPDATE)
