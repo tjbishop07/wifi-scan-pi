@@ -103,8 +103,11 @@ try:
     epd.displayPartial(epd.getbuffer(time_image))
     #os.system('trackerjacker -i wlan1 --map')
     logging.info("Launching tJ...")
-    process = subprocess.Popen(['trackerjacker', '-i wlan1', '--map'])
+    #process = subprocess.Popen(['trackerjacker', '-i wlan1', '--map'])
     #stdout, stderr = process.communicate()
+
+    cmd = "trackerjacker -i wlan1 --map"
+    p = subprocess.Popen(cmd, shell=True, close_fds=False)
 
     while (True):
 
