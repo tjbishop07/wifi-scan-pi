@@ -77,74 +77,13 @@ def parse_wifi_map(map_path):
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), 'SSID count: {}'.format(
         len(wifi_map)), font=font15, fill=0)
-    time_draw.text((0, 10), 'Associated device count: {}'.format(
+    time_draw.text((0, 15), 'Associated device count: {}'.format(
         len(associated_devices)), font=font15, fill=0)
-    time_draw.text((0, 20), 'Device count: {}'.format(
+    time_draw.text((0, 25), 'Device count: {}'.format(
         len(devices)), font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     print('\n\nSSID count: {}, Associated device count: {}, Device count: {}'.format(
         len(wifi_map), len(associated_devices), len(devices)))
-
-    # try:
-    #     SRCMAC = packet[0].addr2
-    #     DSTMAC = packet[0].addr
-    #     BSSID = packet[0].addr3
-    # except:
-    #     print("Cannot read MAC address")
-
-    # print('Got mAC')
-    # # print(str(packet).encode("hex"))
-    # # sys.exc_clear()
-
-    # try:
-    #     SSIDSize = packet[0][Dot11Elt].len
-    #     SSID = packet[0][Dot11Elt].info
-    # except:
-    #     SSID = ""
-    #     SSIDSize = 0
-
-    # print('Analyzing packet: {0}'.format(str(packet[0].type)))
-    # if packet[0].type == 0:
-    #     ST = packet[0][Dot11].subtype
-    #     print(str(SSID))
-    #     print('Init epd...')
-    #     epd = epd2in13_V2.EPD()
-    #     epd.init(epd.FULL_UPDATE)
-
-    #     image = Image.new('1', (epd.height, epd.width),
-    #                       255)  # clear the screen
-    #     draw = ImageDraw.Draw(image)
-    #     draw.text((0, 0), str(SSID), font=font15, fill=0)
-    #     epd.display(epd.getbuffer(image))
-
-    #     if str(ST) == "8" and SSID != "" and DSTMAC.lower() == "ff:ff:ff:ff:ff:ff":
-    #         p = packet[Dot11Elt]
-    #         cap = packet.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}"
-    #                              "{Dot11ProbeResp:%Dot11ProbeResp.cap%}").split('+')
-    #         channel = None
-    #         crypto = set()
-    #         while isinstance(p, Dot11Elt):
-    #             try:
-    #                 if p.ID == 3:
-    #                     channel = ord(p.info)
-    #                 elif p.ID == 48:
-    #                     crypto.add("WPA2")
-    #                 elif p.ID == 221 and p.info.startswith('\x00P\xf2\x01\x01\x00'):
-    #                     crypto.add("WPA")
-    #             except:
-    #                 pass
-    #             p = p.payload
-    #         if not crypto:
-    #             if 'privacy' in cap:
-    #                 crypto.add("WEP")
-    #             else:
-    #                 crypto.add("OPN")
-    #         if SRCMAC not in ssid_list.keys():
-    #             # if '0050f204104a000110104400010210' in str(packet).encode("hex"):
-    #             #	crypto.add("WPS")
-    #             print("[+] New AP {0:5}\t{1:20}\t{2:20}\t{3:5}".format(
-    #                 channel, BSSID, ' / '.join(crypto), SSID))
-    #             ssid_list[SRCMAC] = SSID
 
 
 try:
@@ -163,54 +102,11 @@ try:
     time_draw.text((0, 0), "Scanning...", font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     #os.system('trackerjacker -i wlan1 --map')
-    process = subprocess.Popen(['trackerjacker', '-i wlan1', '--map'],
+    logging.info("Launching tJ...")
+    process = subprocess.Popen(['trackerjacker', '-i wlan1 --map'],
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     #stdout, stderr = process.communicate()
-
-    # logging.info("1.Drawing on the image...")
-    # image = Image.new('1', (epd.height, epd.width),
-    #                   255)  # 255: clear the frame
-    # draw = ImageDraw.Draw(image)
-
-    # #print("Setting up sniff optionsz...")
-    # draw.text((120, 60), 'Starting wifi...', font=font15, fill=0)
-    # #os.system('ifconfig ' + iface + ' down')
-    # os.system('iwconfig ' + newiface + ' mode monitor')
-
-    # draw.rectangle([(0, 0), (50, 50)], outline=0)
-    # draw.rectangle([(55, 0), (100, 50)], fill=0)
-    # draw.line([(0, 0), (50, 50)], fill=0, width=1)
-    # draw.line([(0, 50), (50, 0)], fill=0, width=1)
-    # draw.chord((10, 60, 50, 100), 0, 360, fill=0)
-    # draw.ellipse((55, 60, 95, 100), outline=0)
-    # draw.pieslice((55, 60, 95, 100), 90, 180, outline=0)
-    # draw.pieslice((55, 60, 95, 100), 270, 360, fill=0)
-    # draw.polygon([(110, 0), (110, 50), (150, 25)], outline=0)
-    # draw.polygon([(190, 0), (190, 50), (150, 25)], fill=0)
-    # draw.text((110, 90), u'微雪电子', font=font24, fill=0)
-    # epd.display(epd.getbuffer(image))
-    # time.sleep(2)
-
-    # # read bmp file
-    # logging.info("2.read bmp file...")
-    # image = Image.open(os.path.join(picdir, '2in13.bmp'))
-    # epd.display(epd.getbuffer(image))
-    # time.sleep(2)
-
-    # # read bmp file on window
-    # logging.info("3.read bmp file on window...")
-    # # epd.Clear(0xFF)
-    # image1 = Image.new('1', (epd.height, epd.width),
-    #                    255)  # 255: clear the frame
-    # bmp = Image.open(os.path.join(picdir, '100x100.bmp'))
-    # image1.paste(bmp, (2, 2))
-    # epd.display(epd.getbuffer(image1))
-    # time.sleep(2)
-
-    # sniff(iface=newiface, prn=PacketHandler)
-    # epd.init(epd.FULL_UPDATE)
-    # epd.Clear(0xFF)
 
     while (True):
 
