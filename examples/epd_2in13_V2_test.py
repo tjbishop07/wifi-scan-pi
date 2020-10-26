@@ -74,12 +74,12 @@ def parse_wifi_map(map_path):
                         print('\t\tdevice = {}'.format(device))
 
     time_draw.rectangle((0, 0, 220, 105), fill=255)
-    time_draw.text(
-        (0, 0),
-        'SSID count: {}, Associated device count: {}, Device count: {}'.format(
-            len(wifi_map), len(associated_devices), len(devices)),
-        font=font15,
-        fill=0)
+    time_draw.text((0, 0), 'SSID count: {}'.format(
+        len(wifi_map)), font=font15, fill=0)
+    time_draw.text((0, 0), 'Associated device count: {}, Device count: {}'.format(
+        len(associated_devices)), font=font15, fill=0)
+    time_draw.text((0, 0), 'Device count: {}'.format(
+        len(devices)), font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     print('\n\nSSID count: {}, Associated device count: {}, Device count: {}'.format(
         len(wifi_map), len(associated_devices), len(devices)))
@@ -203,17 +203,17 @@ try:
     # time.sleep(2)
 
     #sniff(iface=newiface, prn=PacketHandler)
-    #epd.init(epd.FULL_UPDATE)
-    #epd.Clear(0xFF)
+    # epd.init(epd.FULL_UPDATE)
+    # epd.Clear(0xFF)
 
     while (True):
 
         parse_wifi_map(wifi_map_path)
 
         #time_draw.rectangle((120, 80, 220, 105), fill=255)
-        #time_draw.text((120, 80), time.strftime(
+        # time_draw.text((120, 80), time.strftime(
         #    '%H:%M:%S'), font=font24, fill=0)
-        #epd.displayPartial(epd.getbuffer(time_image))
+        # epd.displayPartial(epd.getbuffer(time_image))
         num = num + 1
         if(num == 10):
             break
