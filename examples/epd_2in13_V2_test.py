@@ -20,7 +20,7 @@ if os.path.exists(libdir):
 
 
 logging.basicConfig(level=logging.DEBUG)
-newiface = 'wlan1'
+newiface = 'wlan1mon'
 ap_list = []
 
 
