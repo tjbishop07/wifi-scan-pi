@@ -32,8 +32,10 @@ def PacketHandler(packet):
         if packet.type == 0 and packet.subtype == 8:
             if packet.addr2 not in ap_list:
                 ap_list.append(packet.addr2)
-                print("Access Point MAC: %s with SSID: %s " %
-                      (packet.addr2, packet.info))
+                time_draw.rectangle((120, 80, 220, 105), fill=255)
+                time_draw.text((120, 80), "Access Point MAC: %s with SSID: %s " %(packet.addr2, packet.info), font=font24, fill=0)
+                epd.displayPartial(epd.getbuffer(time_image))
+                print("Access Point MAC: %s with SSID: %s " %(packet.addr2, packet.info))
 
     # try:
     #     SRCMAC = packet[0].addr2
