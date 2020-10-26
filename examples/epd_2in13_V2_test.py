@@ -38,8 +38,8 @@ def PacketHandler(packet):
                 #time_draw.rectangle((0, 0, 220, 105), fill=255)
                 mac_address = packet.addr2
                 ap_ssid = packet.info
-                time_draw.text((10, 50), mac_address, font=font15, fill=0)
-                time_draw.text((10, 75), ap_ssid.decode('UTF-8'), font=font15, fill=0)
+                time_draw.text((0, 50), mac_address, font=font15, fill=0, align="center")
+                time_draw.text((0, 75), ap_ssid.decode('UTF-8'), font=font15, fill=0, align="center")
                 epd.displayPartial(epd.getbuffer(time_image))
                 print("MAC: %s with SSID: %s " %
                       (packet.addr2, packet.info))
