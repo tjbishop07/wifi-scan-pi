@@ -35,8 +35,9 @@ def PacketHandler(packet):
         if packet.type == 0 and packet.subtype == 8:
             if packet.addr2 not in ap_list:
                 ap_list.append(packet.addr2)
-                time_draw.rectangle((0, 0, 220, 105), fill=255)
-                time_draw.text((0, 0), "%s (%s) " % (packet.addr2, packet.info), font=font15, fill=0)
+                #time_draw.rectangle((0, 0, 220, 105), fill=255)
+                time_draw.text((50, 0), packet.addr2, font=font15, fill=0)
+                time_draw.text((100, 0), packet.info, font=font15, fill=0)
                 epd.displayPartial(epd.getbuffer(time_image))
                 print("MAC: %s with SSID: %s " %
                       (packet.addr2, packet.info))
@@ -162,7 +163,7 @@ try:
     sniff(iface=newiface, prn=PacketHandler)
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
-    
+
     while (True):
         time_draw.rectangle((120, 80, 220, 105), fill=255)
         time_draw.text((120, 80), time.strftime(
