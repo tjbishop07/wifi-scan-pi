@@ -117,9 +117,9 @@ try:
         # time_draw.text((120, 80), time.strftime(
         #    '%H:%M:%S'), font=font24, fill=0)
         # epd.displayPartial(epd.getbuffer(time_image))
-        num = num + 1
-        if(num == 10):
-            break
+        # num = num + 1
+        # if(num == 10):
+        #     break
 
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
