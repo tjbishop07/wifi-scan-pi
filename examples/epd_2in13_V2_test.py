@@ -163,10 +163,10 @@ try:
     time_draw.text((0, 0), "Scanning...", font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     #os.system('trackerjacker -i wlan1 --map')
-    process = subprocess.Popen(['trackerjacker -i wlan1 --map'],
+    process = subprocess.Popen(['trackerjacker', '-i wlan1', '--map'],
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
+    #stdout, stderr = process.communicate()
 
     # logging.info("1.Drawing on the image...")
     # image = Image.new('1', (epd.height, epd.width),
