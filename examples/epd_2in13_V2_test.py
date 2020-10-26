@@ -22,6 +22,9 @@ if os.path.exists(libdir):
 logging.basicConfig(level=logging.DEBUG)
 newiface = 'wlan1mon'
 ap_list = []
+font15 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 15)
+font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
+
 epd = epd2in13_V2.EPD()
 time_image = Image.new('1', (epd.height, epd.width), 255)
 time_draw = ImageDraw.Draw(time_image)
@@ -113,10 +116,6 @@ try:
     logging.info("init and Clear")
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
-
-    # Drawing on the image
-    font15 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 15)
-    font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
 
     # logging.info("1.Drawing on the image...")
     # image = Image.new('1', (epd.height, epd.width),
