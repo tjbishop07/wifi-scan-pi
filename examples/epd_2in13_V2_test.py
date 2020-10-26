@@ -109,50 +109,49 @@ try:
     font15 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 15)
     font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
 
-    logging.info("1.Drawing on the image...")
-    image = Image.new('1', (epd.height, epd.width),
-                      255)  # 255: clear the frame
-    draw = ImageDraw.Draw(image)
+    # logging.info("1.Drawing on the image...")
+    # image = Image.new('1', (epd.height, epd.width),
+    #                   255)  # 255: clear the frame
+    # draw = ImageDraw.Draw(image)
 
-    #print("Setting up sniff optionsz...")
-    draw.text((120, 60), 'Starting wifi...', font=font15, fill=0)
-    #os.system('ifconfig ' + iface + ' down')
-    os.system('iwconfig ' + newiface + ' mode monitor')
+    # #print("Setting up sniff optionsz...")
+    # draw.text((120, 60), 'Starting wifi...', font=font15, fill=0)
+    # #os.system('ifconfig ' + iface + ' down')
+    # os.system('iwconfig ' + newiface + ' mode monitor')
 
-    draw.rectangle([(0, 0), (50, 50)], outline=0)
-    draw.rectangle([(55, 0), (100, 50)], fill=0)
-    draw.line([(0, 0), (50, 50)], fill=0, width=1)
-    draw.line([(0, 50), (50, 0)], fill=0, width=1)
-    draw.chord((10, 60, 50, 100), 0, 360, fill=0)
-    draw.ellipse((55, 60, 95, 100), outline=0)
-    draw.pieslice((55, 60, 95, 100), 90, 180, outline=0)
-    draw.pieslice((55, 60, 95, 100), 270, 360, fill=0)
-    draw.polygon([(110, 0), (110, 50), (150, 25)], outline=0)
-    draw.polygon([(190, 0), (190, 50), (150, 25)], fill=0)
-    draw.text((110, 90), u'微雪电子', font=font24, fill=0)
-    epd.display(epd.getbuffer(image))
-    time.sleep(2)
+    # draw.rectangle([(0, 0), (50, 50)], outline=0)
+    # draw.rectangle([(55, 0), (100, 50)], fill=0)
+    # draw.line([(0, 0), (50, 50)], fill=0, width=1)
+    # draw.line([(0, 50), (50, 0)], fill=0, width=1)
+    # draw.chord((10, 60, 50, 100), 0, 360, fill=0)
+    # draw.ellipse((55, 60, 95, 100), outline=0)
+    # draw.pieslice((55, 60, 95, 100), 90, 180, outline=0)
+    # draw.pieslice((55, 60, 95, 100), 270, 360, fill=0)
+    # draw.polygon([(110, 0), (110, 50), (150, 25)], outline=0)
+    # draw.polygon([(190, 0), (190, 50), (150, 25)], fill=0)
+    # draw.text((110, 90), u'微雪电子', font=font24, fill=0)
+    # epd.display(epd.getbuffer(image))
+    # time.sleep(2)
 
-    sniff(iface=newiface, prn=PacketHandler)
+    # # read bmp file
+    # logging.info("2.read bmp file...")
+    # image = Image.open(os.path.join(picdir, '2in13.bmp'))
+    # epd.display(epd.getbuffer(image))
+    # time.sleep(2)
 
-    # read bmp file
-    logging.info("2.read bmp file...")
-    image = Image.open(os.path.join(picdir, '2in13.bmp'))
-    epd.display(epd.getbuffer(image))
-    time.sleep(2)
-
-    # read bmp file on window
-    logging.info("3.read bmp file on window...")
-    # epd.Clear(0xFF)
-    image1 = Image.new('1', (epd.height, epd.width),
-                       255)  # 255: clear the frame
-    bmp = Image.open(os.path.join(picdir, '100x100.bmp'))
-    image1.paste(bmp, (2, 2))
-    epd.display(epd.getbuffer(image1))
-    time.sleep(2)
+    # # read bmp file on window
+    # logging.info("3.read bmp file on window...")
+    # # epd.Clear(0xFF)
+    # image1 = Image.new('1', (epd.height, epd.width),
+    #                    255)  # 255: clear the frame
+    # bmp = Image.open(os.path.join(picdir, '100x100.bmp'))
+    # image1.paste(bmp, (2, 2))
+    # epd.display(epd.getbuffer(image1))
+    # time.sleep(2)
 
     # # partial update
-    logging.info("4.show time...")
+    logging.info("Init...")
+    sniff(iface=newiface, prn=PacketHandler)
     time_image = Image.new('1', (epd.height, epd.width), 255)
     time_draw = ImageDraw.Draw(time_image)
 
