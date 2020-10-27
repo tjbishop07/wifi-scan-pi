@@ -91,10 +91,9 @@ try:
 
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), "Loading...", font=font15, fill=0)
-    time_draw.image = Image.open(os.path.join(picdir, 'terminus-qr.png'))
 
     blackimage1 = Image.new('1', (40, 40), 255)
-    newimage = Image.open(os.path.join(picdir, 'terminus-qr.png'))
+    newimage = Image.open(os.path.join(picdir, 'terminus-qr.bmp'))
     blackimage1.paste(newimage, (50, 20))
 
     # epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
