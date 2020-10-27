@@ -84,9 +84,6 @@ try:
     logging.info("init and Clear")
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
-    epd.init(epd.FULL_UPDATE)
-    epd.displayPartBaseImage(epd.getbuffer(time_image))
-    epd.init(epd.PART_UPDATE)
     num = 0
 
     time_draw.rectangle((0, 0, 220, 105), fill=255)
@@ -97,7 +94,7 @@ try:
     blackimage1.paste(newimage, (50, 20))
 
     # epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
-    epd.display(epd.getbuffer(time_image), epd.getbuffer(blackimage1))
+    epd.display(epd.getbuffer(time_draw), epd.getbuffer(blackimage1))
     #os.system('trackerjacker -i wlan1 --map')
     #logging.info("Launching tJ...")
     #process = subprocess.Popen(['trackerjacker', '-i', 'wlan1', '--map'])
