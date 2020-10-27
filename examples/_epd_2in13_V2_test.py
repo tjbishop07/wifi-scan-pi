@@ -39,19 +39,22 @@ def parse_wifi_map(map_path):
     associated_devices = set()
 
     for ssid in wifi_map:
-        print('ssid = {}'.format(ssid))
-        ssid_node = wifi_map[ssid]
-        for bssid in ssid_node:
-            print('\tbssid = {}'.format(bssid))
-            bssid_node = ssid_node[bssid]
-            if 'devices' in bssid_node:
-                for device in bssid_node['devices']:
-                    devices |= {device}
-                    if ssid != '~unassociated_devices':
-                        associated_devices |= {device}
-                        print('\t\tdevice (associated) = {}'.format(device))
-                    else:
-                        print('\t\tdevice = {}'.format(device))
+        try:
+            print('ssid = {}'.format(ssid))
+            ssid_node = wifi_map[ssid]
+            for bssid in ssid_node:
+                print('\tbssid = {}'.format(bssid))
+                bssid_node = ssid_node[bssid]
+                if 'devices' in bssid_node:
+                    for device in bssid_node['devices']:
+                        devices |= {device}
+                        if ssid != '~unassociated_devices':
+                            associated_devices |= {device}
+                            print('\t\tdevice (associated) = {}'.format(device))
+                        else:
+                            print('\t\tdevice = {}'.format(device))
+        except IOError as e:
+            logging.info(e)
 
     time_draw.rectangle((0, 0, 220, 125), fill=255)
     time_draw.text((0, 0), 'SSID count: {}'.format(
