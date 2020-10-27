@@ -1,38 +1,34 @@
-import sys
-import yaml
+__apiversion__ = 1
 
 
-def parse_wifi_map(map_path):
-    with open(map_path, 'r') as f:
-        data = f.read()
+class Trigger:
+    def __init__(self):
+        # dev_id -> [timestamp1, timestamp2, ...]
+        self.packets_seen = 0
+        self.unique_mac_addrs = set()
 
-    wifi_map = yaml.load(data)
-    devices = set()
-    associated_devices = set()
-
-    for ssid in wifi_map:
-        print('ssid = {}'.format(ssid))
-        ssid_node = wifi_map[ssid]
-        for bssid in ssid_node:
-            print('\tbssid = {}'.format(bssid))
-            bssid_node = ssid_node[bssid]
-            if 'devices' in bssid_node:
-                for device in bssid_node['devices']:
-                    devices |= {device}
-                    if ssid != '~unassociated_devices':
-                        associated_devices |= {device}
-                        print('\t\tdevice (associated) = {}'.format(device))
-                    else:
-                        print('\t\tdevice = {}'.format(device))
-
-    print('\n\nSSID count: {}, Associated device count: {}, Device count: {}'.format(len(wifi_map),
-                                                                                     len(
-                                                                                         associated_devices),
-                                                                                     len(devices)))
-
-
-if __name__ == '__main__':
-    wifi_map_path = 'wifi_map.yaml'
-    if len(sys.argv) > 1:
-        wifi_map_path = sys.argv[1]
-    parse_wifi_map(wifi_map_path)
+    def __call__(self,
+                 dev_id=None,
+                 dev_type=None,
+                 num_bytes=None,
+                 data_threshold=None,
+                 vendor=None,
+                 power=None,
+                 power_threshold=None,
+                 bssid=None,
+                 ssid=None,
+                 iface=None,
+                 channel=None,
+                 frame_type=None,
+                 frame=None,
+                 **kwargs):
+        self.packets_seen += 1
+        self.unique_mac_addrs |= {dev_id}
+        print('[!] Total packets: {}, Unique devices: {}'.format(
+            self.packets_seen, len(self.unique_mac_addrs)))
+        print('\tdev_id = {}, dev_type = {}, num_bytes = {}, data_threshold = {}, vendor = {}, '
+              'power = {}, power_threshold = {}, bssid = {}, ssid = {}, iface = {}, channel = {}, '
+              'frame_types = {}, frame = {}'
+              .format(dev_id, dev_type, num_bytes, data_threshold, vendor,
+                      power, power_threshold, bssid, ssid, iface, channel,
+                      frame_type, frame))
