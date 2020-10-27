@@ -62,6 +62,7 @@ def parse_wifi_map(map_path):
         total = round(disk.total/1024.0/1024.0/1024.0, 1)
 
         epd.init(epd.FULL_UPDATE)
+        epd.Clear(0xFF)
         time_draw.rectangle((0, 0, 220, 125), fill=255)
         time_draw.text((0, 0), 'SSID count: {}'.format(
             len(wifi_map)), font=font15, fill=0)
