@@ -55,6 +55,11 @@ def parse_wifi_map(map_path):
                         else:
                             print('\t\tdevice = {}'.format(device))
 
+        disk = psutil.disk_usage('/')
+        # Divide from Bytes -> KB -> MB -> GB
+        free = round(disk.free/1024.0/1024.0/1024.0, 1)
+        total = round(disk.total/1024.0/1024.0/1024.0, 1)
+
         time_draw.rectangle((0, 0, 220, 125), fill=255)
         time_draw.text((0, 0), 'SSID count: {}'.format(
             len(wifi_map)), font=font15, fill=0)
@@ -62,8 +67,8 @@ def parse_wifi_map(map_path):
             len(associated_devices)), font=font15, fill=0)
         time_draw.text((0, 35), 'Device count: {}'.format(
             len(devices)), font=font15, fill=0)
-        time_draw.text((0, 100), 'Updated: {}, CPU: {}'.format(
-            time.strftime('%H:%M:%S'), str(psutil.cpu_percent()) + '%'), font=font15, fill=0)
+        time_draw.text((0, 100), 'Updated: {}, CPU: {}, DISK: {}'.format(
+            time.strftime('%H:%M:%S'), str(psutil.cpu_percent()) + '%', str(free) + 'GB free / ' + str(total) + 'GB total ( ' + str(disk.percent) + '% )'), font=font15, fill=0)
         epd.displayPartial(epd.getbuffer(time_image))
         print('\n\nSSID count: {}, Associated device count: {}, Device count: {}'.format(
             len(wifi_map), len(associated_devices), len(devices)))
