@@ -61,6 +61,7 @@ def parse_wifi_map(map_path):
         free = round(disk.free/1024.0/1024.0/1024.0, 1)
         total = round(disk.total/1024.0/1024.0/1024.0, 1)
 
+        epd.Clear(0xFF)
         time_draw.rectangle((0, 0, 220, 125), fill=255)
         time_draw.text((0, 0), 'SSID count: {}'.format(
             len(wifi_map)), font=font15, fill=0)
@@ -94,11 +95,6 @@ try:
     blackimage1.paste(newimage, (10, 10))
     epd.display(epd.getbuffer(blackimage1))
 
-    while (True):
-        num = num + 1
-        if(num == 10):
-            break
-
     # epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
     # epd.displayPartial(epd.getbuffer(blackimage1))
     #os.system('trackerjacker -i wlan1 --map')
@@ -109,7 +105,6 @@ try:
     #cmd = "trackerjacker -i wlan1 --map"
     #p = subprocess.run(cmd, shell=True)
 
-    epd.Clear(0xFF)
     while (True):
 
         parse_wifi_map(wifi_map_path)
