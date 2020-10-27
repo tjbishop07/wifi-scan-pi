@@ -66,7 +66,7 @@ def parse_wifi_map(map_path):
             len(wifi_map)), font=font15, fill=0)
         time_draw.text((0, 15), 'Associated device count: {}'.format(
             len(associated_devices)), font=font15, fill=0)
-        time_draw.text((0, 35), 'Device count: {}'.format(
+        time_draw.text((0, 30), 'Device count: {}'.format(
             len(devices)), font=font15, fill=0)
         time_draw.text((5, 90), 'Last Updated: {}, CPU: {}'.format(
             time.strftime('%H:%M:%S'), str(psutil.cpu_percent()) + '%'), font=font10, fill=0)
