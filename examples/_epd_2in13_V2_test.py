@@ -61,8 +61,6 @@ def parse_wifi_map(map_path):
         free = round(disk.free/1024.0/1024.0/1024.0, 1)
         total = round(disk.total/1024.0/1024.0/1024.0, 1)
 
-        # epd.init(epd.FULL_UPDATE)
-        # epd.Clear(0xFF)
         time_draw.rectangle((0, 0, 220, 125), fill=255)
         time_draw.text((0, 0), 'SSID count: {}'.format(
             len(wifi_map)), font=font15, fill=0)
@@ -86,13 +84,14 @@ try:
     logging.info("init and Clear")
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
+    epd.init(epd.FULL_UPDATE)
+    epd.displayPartBaseImage(epd.getbuffer(time_image))
+    epd.init(epd.PART_UPDATE)
     num = 0
 
-    # blackimage1 = Image.new('1', (epd.height, epd.width), 255)  # 298*126
-    # newimage = Image.open(os.path.join(picdir, 'terminus-qr.png'))
-    # blackimage1.paste(newimage, (10, 10))
-    # epd.display(epd.getbuffer(blackimage1))
-
+    time_draw.rectangle((0, 0, 220, 105), fill=255)
+    time_draw.text((0, 0), "Loading...", font=font15, fill=0)
+    epd.displayPartial(epd.getbuffer(time_image))
     #os.system('trackerjacker -i wlan1 --map')
     #logging.info("Launching tJ...")
     #process = subprocess.Popen(['trackerjacker', '-i', 'wlan1', '--map'])

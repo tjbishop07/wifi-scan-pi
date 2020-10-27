@@ -96,3 +96,10 @@ except KeyboardInterrupt:
     logging.info("ctrl + c:")
     epd2in13b_V3.epdconfig.module_exit()
     exit()
+
+
+
+    # blackimage1 = Image.new('1', (epd.height, epd.width), 255)  # 298*126
+    # newimage = Image.open(os.path.join(picdir, 'terminus-qr.png'))
+    # blackimage1.paste(newimage, (10, 10))
+    # epd.display(epd.getbuffer(blackimage1))
