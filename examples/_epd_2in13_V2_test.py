@@ -86,15 +86,17 @@ try:
     epd.Clear(0xFF)
     num = 0
 
-    time_draw.rectangle((0, 0, 220, 105), fill=255)
-    time_draw.text((0, 0), "Loading...", font=font15, fill=0)
+    # time_draw.rectangle((0, 0, 220, 105), fill=255)
+    # time_draw.text((0, 0), "Loading...", font=font15, fill=0)
 
-    blackimage1 = Image.new('1', (40, 40), 255)
+    blackimage1 = Image.new('1', (epd.height, epd.width), 255)  # 298*126
+    redimage1 = Image.new('1', (epd.height, epd.width), 255)  # 298*126
     newimage = Image.open(os.path.join(picdir, 'terminus-qr.bmp'))
-    blackimage1.paste(newimage, (50, 20))
+    blackimage1.paste(newimage, (0, 0))
+    epd.display(epd.getbuffer(blackimage1), epd.getbuffer(redimage1))
 
     # epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
-    epd.displayPartial(epd.getbuffer(blackimage1))
+    # epd.displayPartial(epd.getbuffer(blackimage1))
     #os.system('trackerjacker -i wlan1 --map')
     #logging.info("Launching tJ...")
     #process = subprocess.Popen(['trackerjacker', '-i', 'wlan1', '--map'])
