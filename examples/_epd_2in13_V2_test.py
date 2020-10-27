@@ -94,7 +94,7 @@ try:
     blackimage1.paste(newimage, (50, 20))
 
     # epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
-    epd.display(epd.getbuffer(time_draw), epd.getbuffer(blackimage1))
+    epd.displayPartial(epd.getbuffer(blackimage1))
     #os.system('trackerjacker -i wlan1 --map')
     #logging.info("Launching tJ...")
     #process = subprocess.Popen(['trackerjacker', '-i', 'wlan1', '--map'])
