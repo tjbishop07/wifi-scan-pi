@@ -68,7 +68,7 @@ def parse_wifi_map(map_path):
             len(associated_devices)), font=font15, fill=0)
         time_draw.text((0, 35), 'Device count: {}'.format(
             len(devices)), font=font15, fill=0)
-        time_draw.text((0, 100), 'Updated: {}, CPU: {}, DISK: {}'.format(
+        time_draw.text((0, 100), '{}, CPU: {}, DISK: {}'.format(
             time.strftime('%H:%M:%S'), str(psutil.cpu_percent()) + '%', str(free) + 'GB free / ' + str(total) + 'GB total ( ' + str(disk.percent) + '% )'), font=font12, fill=0)
         epd.displayPartial(epd.getbuffer(time_image))
         print('\n\nSSID count: {}, Associated device count: {}, Device count: {}'.format(
