@@ -109,7 +109,7 @@ try:
     #cmd = "trackerjacker -i wlan1 --map"
     #p = subprocess.run(cmd, shell=True)
 
-    epd.Clear()
+    epd.Clear(0xFF)
     while (True):
 
         parse_wifi_map(wifi_map_path)
