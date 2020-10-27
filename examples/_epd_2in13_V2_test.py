@@ -92,7 +92,12 @@ try:
     blackimage1 = Image.new('1', (epd.height, epd.width), 255)  # 298*126
     newimage = Image.open(os.path.join(picdir, 'terminus-qr.png'))
     blackimage1.paste(newimage, (10, 10))
-    epd.displayPartial(epd.getbuffer(blackimage1))
+    epd.display(epd.getbuffer(blackimage1))
+
+    while (True):
+        num = num + 1
+        if(num == 10):
+            break
 
     # epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
     # epd.displayPartial(epd.getbuffer(blackimage1))
@@ -104,6 +109,7 @@ try:
     #cmd = "trackerjacker -i wlan1 --map"
     #p = subprocess.run(cmd, shell=True)
 
+    epd.Clear()
     while (True):
 
         parse_wifi_map(wifi_map_path)
