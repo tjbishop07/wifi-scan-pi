@@ -91,8 +91,13 @@ try:
 
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), "Loading...", font=font15, fill=0)
-    HBlackimage = Image.open(os.path.join(picdir, 'terminus-qr.png'))
-    epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
+    time_draw.image = Image.open(os.path.join(picdir, 'terminus-qr.png'))
+
+    blackimage1 = Image.new('1', (40, 40), 255)
+    newimage = Image.open(os.path.join(picdir, 'terminus-qr.png'))
+    blackimage1.paste(newimage, (50, 20))
+
+    # epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(time_image))
     epd.displayPartial(epd.getbuffer(time_image))
     #os.system('trackerjacker -i wlan1 --map')
     #logging.info("Launching tJ...")
