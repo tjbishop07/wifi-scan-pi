@@ -22,6 +22,7 @@ if os.path.exists(libdir):
 logging.basicConfig(level=logging.DEBUG)
 newiface = 'wlan1mon'
 wifi_map_path = 'wifi_map.yaml'
+qr_size = 128, 128
 ap_list = []
 font10 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 10)
 font15 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 15)
@@ -89,7 +90,7 @@ try:
     # time_draw.rectangle((0, 0, 220, 105), fill=255)
     # time_draw.text((0, 0), "Loading...", font=font15, fill=0)
 
-    blackimage1 = Image.new('1', size=(100, 100), 255)  # 298*126
+    blackimage1 = Image.new('1', (qr_size), 255)  # 298*126
     newimage = Image.open(os.path.join(picdir, 'terminus-qr.bmp'))
     blackimage1.paste(newimage, (0, 0))
     epd.display(epd.getbuffer(blackimage1))
