@@ -21,7 +21,7 @@ if os.path.exists(libdir):
 
 logging.basicConfig(level=logging.DEBUG)
 newiface = 'wlan1mon'
-wifi_map_path = 'wifi_map.yaml'
+wifi_map_path = '/root/wifi_map.yaml'
 ap_list = []
 font10 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 10)
 font15 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 15)
