@@ -12,6 +12,10 @@ import yaml
 import socket
 import psutil
 
+import netifaces as ni
+ni.ifaddresses('eth0')
+ip = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr']
+
 picdir = os.path.join(os.path.dirname(
     os.path.dirname(os.path.realpath(__file__))), 'pic')
 libdir = os.path.join(os.path.dirname(
@@ -94,7 +98,7 @@ try:
     num = 0
 
     time_draw.rectangle((0, 0, 220, 105), fill=255)
-    time_draw.text((0, 0), "Loading... ({})".format(local_ip), font=font15, fill=0)
+    time_draw.text((0, 0), "Loading... ({})".format(ip), font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
     #os.system('trackerjacker -i wlan1 --map')
     #logging.info("Launching tJ...")
