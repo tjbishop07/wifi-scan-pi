@@ -9,6 +9,7 @@ import sys
 import os
 import subprocess
 import yaml
+import socket
 import psutil
 
 picdir = os.path.join(os.path.dirname(
