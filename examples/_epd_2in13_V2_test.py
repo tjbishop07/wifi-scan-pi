@@ -13,8 +13,8 @@ import socket
 import psutil
 
 import netifaces as ni
-ni.ifaddresses('eth0')
-ip = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr']
+ni.ifaddresses('wlan0')
+ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
 
 picdir = os.path.join(os.path.dirname(
     os.path.dirname(os.path.realpath(__file__))), 'pic')
