@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 from PIL import Image, ImageDraw, ImageFont
-import traceback
-import time
 from waveshare_epd import epd2in13_V2
+import time
 import logging
 import sys
 import os
@@ -11,8 +10,8 @@ import subprocess
 import yaml
 import socket
 import psutil
-
 import netifaces as ni
+
 ni.ifaddresses('wlan0')
 ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
 
@@ -100,30 +99,14 @@ try:
     time_draw.rectangle((0, 0, 220, 105), fill=255)
     time_draw.text((0, 0), "Loading... ({})".format(ip), font=font15, fill=0)
     epd.displayPartial(epd.getbuffer(time_image))
-    #os.system('trackerjacker -i wlan1 --map')
-    #logging.info("Launching tJ...")
-    #process = subprocess.Popen(['trackerjacker', '-i', 'wlan1', '--map'])
-    #stdout, stderr = process.communicate()
-
-    #cmd = "trackerjacker -i wlan1 --map"
-    #p = subprocess.run(cmd, shell=True)
 
     while (True):
-
         parse_wifi_map(wifi_map_path)
-
-        # time_draw.rectangle((120, 80, 220, 105), fill=255)
-        # time_draw.text((120, 80), time.strftime(
-        #    '%H:%M:%S'), font=font24, fill=0)
-        # epd.displayPartial(epd.getbuffer(time_image))
-        # num = num + 1
-        # if(num == 10):
-        #     break
 
     epd.init(epd.FULL_UPDATE)
     epd.Clear(0xFF)
 
-    logging.info("Goto Sleep...")
+    logging.info("Adios!")
     epd.sleep()
     epd.Dev_exit()
 
